@@ -1,5 +1,5 @@
 ---
-description: Implement a ready GitHub issue with the Dev agent (ready → in-review)
+description: Implement a ready GitHub issue with the Dev agent (ready → in-review, ending with a PR)
 argument-hint: "[#<issue-number>]"
 ---
 
@@ -12,4 +12,4 @@ Issue: $ARGUMENTS
   1. Issues labelled `status:in-progress` with unaddressed Reviewer feedback come first.
   2. Otherwise, take the lowest-numbered `status:ready` issue whose `Depends on #n` issues are all closed.
   3. Tell me which issue you picked and why, then start.
-- Stop after pushing the branch and moving the issue to `status:in-review`. Do not open a PR.
+- Always finish by opening the PR (`Closes #<n>`, following the PR template), linking it on the issue, and moving the issue to `status:in-review`. For Reviewer feedback, push to the existing PR's branch instead. Then stop; do not merge.
