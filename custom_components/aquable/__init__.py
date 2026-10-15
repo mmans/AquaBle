@@ -10,6 +10,7 @@ from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_ADDRESS, CONF_NAME, Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 
 from .card_resources import (
@@ -46,6 +47,8 @@ _PANEL_URL = f"/{DOMAIN}_panel/{_FRONTEND_HASH}"
 _CARD_JS_URL = f"{_PANEL_URL}/aquable-light-card.js"
 _DOSER_CARD_JS_URL = f"{_PANEL_URL}/aquable-doser-card.js"
 _ALL_CARD_URLS = [_CARD_JS_URL, _DOSER_CARD_JS_URL]
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
