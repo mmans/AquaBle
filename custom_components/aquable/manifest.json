@@ -1,22 +1,6 @@
 {
   "domain": "aquable",
   "name": "AquaBle",
-  "version": "4.0.3",
-  "codeowners": [
-    "@caleb-venner"
-  ],
-  "config_flow": true,
-  "dependencies": [
-    "bluetooth",
-    "http"
-  ],
-  "documentation": "https://github.com/caleb-venner/AquaBle",
-  "issue_tracker": "https://github.com/caleb-venner/AquaBle/issues",
-  "iot_class": "local_polling",
-  "requirements": [
-    "bleak>=0.21.0",
-    "bleak-retry-connector>=3.0.0"
-  ],
   "bluetooth": [
     {
       "local_name": "DYDOS*",
@@ -130,5 +114,21 @@
       "service_uuid": "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
       "connectable": true
     }
-  ]
+  ],
+  "codeowners": [
+    "@caleb-venner"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "bluetooth",
+    "http"
+  ],
+  "documentation": "https://github.com/caleb-venner/AquaBle",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/caleb-venner/AquaBle/issues",
+  "requirements": [
+    "bleak>=0.21.0",
+    "bleak-retry-connector>=3.0.0"
+  ],
+  "version": "4.0.3"
 }
