@@ -23,7 +23,7 @@ uv sync --group dev
 uv run ruff check .
 uv run ruff format --check .
 for f in custom_components/aquable/frontend/*.js; do node --input-type=module --check < "$f" || echo "FAIL $f"; done
-uv run pytest            # once the test suite from #7 exists
+uv run pytest
 ```
 
 CI (GitHub Actions) runs the same checks on every PR.
