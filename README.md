@@ -223,6 +223,17 @@ AquaBle integrates Chihiros aquarium equipment into Home Assistant over Bluetoot
 
 ---
 
+## Diagnostics: light schedule lab
+
+`scripts/light_schedule_lab.py` is a standalone CLI for experimenting with a light's clock and schedule slots (set the clock, write/clear slots or point curves, send raw frames, read back the `0xFE` snapshot). **Disable the AquaBle integration while using it**, as it re-syncs the device clock on every connect. See the script docstring for usage and JSON formats:
+
+```bash
+uv run scripts/light_schedule_lab.py --address <MAC> set-time "2026-08-27 11:58"
+uv run scripts/light_schedule_lab.py --address <MAC> read --log lab.log
+```
+
+---
+
 ## Support & Issues
 
 For issues, questions, or feature requests:
