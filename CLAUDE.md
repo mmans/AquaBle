@@ -28,6 +28,8 @@ uv run pytest
 
 CI (GitHub Actions) runs the same checks on every PR.
 
+`main` is protected: changes land only through a PR, and the checks `python-lint`, `js-syntax`, `hassfest`, `hacs` and `pytest` must pass on a branch that is up to date with `main`. No approving review is required (the Reviewer and maintainer share one account). Admins are not enforced, so the maintainer can override in an emergency; agents never do. Force pushes to and deletion of `main` are disallowed. If a job is renamed or added, update the required checks (`gh api repos/mmans/AquaBle/branches/main/protection`).
+
 ## Conventions
 
 - Python ≥ 3.12, ruff rules `E, F, I, W`, line length 100.
