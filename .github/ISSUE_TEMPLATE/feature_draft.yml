@@ -1,0 +1,40 @@
+name: Feature (draft)
+description: A new feature or change, to be refined with the Dev agent before implementation.
+labels: ["type:feature", "status:draft"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why is this needed? What exists today?
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: The outcome in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What will change (files, services, UI). Mark hardware assumptions explicitly.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Checklist that the Reviewer verifies.
+      value: |
+        - [ ]
+  - type: textarea
+    id: questions
+    attributes:
+      label: Open questions
+      description: Must be resolved before the issue moves to status:ready.
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: "e.g. Depends on #10"
