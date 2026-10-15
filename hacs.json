@@ -1,5 +1,4 @@
 {
   "name": "AquaBle",
-  "render_readme": true,
-  "domains": ["aquable"]
+  "render_readme": true
 }
