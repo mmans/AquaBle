@@ -245,9 +245,7 @@ async def async_setup_services(hass: HomeAssistant) -> None:
 
     async def handle_light_manual_mode(call: ServiceCall) -> None:
         coord = _get_coordinator(hass, call.data["device_id"])
-        channel_levels = _extract_channel_levels(
-            coord.model_info, coord.num_channels, call.data
-        )
+        channel_levels = _extract_channel_levels(coord.model_info, coord.num_channels, call.data)
         colors = {ch_idx: val for ch_idx, val in enumerate(channel_levels)}
         _, commands = generators.generate_light_set_brightness_sequence((0, 0), colors)
         await _async_execute_commands(hass, coord.address, commands)
@@ -258,9 +256,7 @@ async def async_setup_services(hass: HomeAssistant) -> None:
         schedule_index = call.data.get("schedule_index")
         sunrise = datetime.time(call.data["sunrise_hour"], call.data["sunrise_minute"])
         sunset = datetime.time(call.data["sunset_hour"], call.data["sunset_minute"])
-        channel_levels = _extract_channel_levels(
-            coord.model_info, coord.num_channels, call.data
-        )
+        channel_levels = _extract_channel_levels(coord.model_info, coord.num_channels, call.data)
         brightness = tuple(channel_levels)
         ramp_up_minutes = call.data["ramp_up_minutes"]
         weekdays = call.data.get("weekdays")
@@ -284,10 +280,12 @@ async def async_setup_services(hass: HomeAssistant) -> None:
                     continue
                 old_mask = int(existing_s.get("weekday_mask", 127))
                 if new_mask & old_mask:
-                    old_start = (int(existing_s.get("sunrise_hour", 12)) * 60 +
-                                 int(existing_s.get("sunrise_minute", 0)))
-                    old_end = (int(existing_s.get("sunset_hour", 20)) * 60 +
-                               int(existing_s.get("sunset_minute", 0)))
+                    old_start = int(existing_s.get("sunrise_hour", 12)) * 60 + int(
+                        existing_s.get("sunrise_minute", 0)
+                    )
+                    old_end = int(existing_s.get("sunset_hour", 20)) * 60 + int(
+                        existing_s.get("sunset_minute", 0)
+                    )
 
                     if new_start <= old_end and new_end >= old_start:
                         raise HomeAssistantError(
@@ -309,12 +307,10 @@ async def async_setup_services(hass: HomeAssistant) -> None:
             if schedule_index is not None and 0 <= schedule_index < len(existing):
                 old_sched = existing[schedule_index]
                 old_sunrise = datetime.time(
-                    old_sched.get("sunrise_hour", 12),
-                    old_sched.get("sunrise_minute", 0)
+                    old_sched.get("sunrise_hour", 12), old_sched.get("sunrise_minute", 0)
                 )
                 old_sunset = datetime.time(
-                    old_sched.get("sunset_hour", 20),
-                    old_sched.get("sunset_minute", 0)
+                    old_sched.get("sunset_hour", 20), old_sched.get("sunset_minute", 0)
                 )
                 old_ramp = old_sched.get("ramp_up_minutes", 0)
 
@@ -377,6 +373,7 @@ async def async_setup_services(hass: HomeAssistant) -> None:
                     ramp_up_minutes = target_sched["ramp_up_minutes"]
                 if weekdays is None:
                     from .domain.light.status import LightSchedule
+
                     temp_sched = LightSchedule.from_dict(target_sched)
                     weekdays = temp_sched.weekdays()
 
