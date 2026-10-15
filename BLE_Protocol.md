@@ -148,6 +148,8 @@ Captured frame example:
 ```
 *Decodes as: Length `0x0B`, Msg ID `0x0007`, Mode `0x09`, Date `2026-08-27 (Thursday) 11:30:15`, Checksum `0x33`.*
 
+> **Note (assumption):** the XOR algorithm above yields `0x08` for these bytes, not `0x33`; the example checksum is probably a transcription error. Found while adding tests for #24, not verified against a capture.
+
 ### Weekday 7-Bit Bitmask
 Both LED lights and dosing pumps use an identical 7-bit bitmask to configure active recurrence days:
 

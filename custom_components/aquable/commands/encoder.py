@@ -187,9 +187,11 @@ def encode_weekdays(weekdays: Sequence[str] | str | None) -> int:
     return encoding
 
 
-def create_set_time_command(msg_id: tuple[int, int]) -> bytearray:
-    """Build a set-time UART command for the device."""
-    return _encode_uart_command(90, 9, msg_id, _encode_timestamp(datetime.datetime.now()))
+def create_set_time_command(
+    msg_id: tuple[int, int], when: datetime.datetime | None = None
+) -> bytearray:
+    """Build a set-time UART command for the device (defaults to the current time)."""
+    return _encode_uart_command(90, 9, msg_id, _encode_timestamp(when or datetime.datetime.now()))
 
 
 # ============================================================================

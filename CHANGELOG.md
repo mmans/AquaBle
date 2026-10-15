@@ -4,6 +4,14 @@ All notable changes to AquaBle are documented here.
 
 ---
 
+## Unreleased
+
+**Add:**
+- `scripts/light_schedule_lab.py` diagnostics tool (set device clock, write/clear slots and point curves, raw frames, `0xFE` readback)
+- `create_set_time_command` accepts an optional `when` datetime
+
+---
+
 ## [v4.0.3] — 2026-08-31
 
 **Improve light device command & control logic.**
