@@ -44,8 +44,8 @@ All work starts from a GitHub issue on `mmans/AquaBle`. Three Claude Code agents
 | Agent | Role |
 |---|---|
 | `architect` | Discusses features with the maintainer, creates **draft** issues. Never writes code. |
-| `dev` | Refines drafts with the maintainer; implements ready issues on a branch. Never opens PRs. |
-| `reviewer` | Reviews the branch against the issue; opens the PR when OK, otherwise sends it back. Never pushes code. |
+| `dev` | Refines drafts with the maintainer; implements ready issues on a branch and opens the PR. Never merges. |
+| `reviewer` | Reviews the PR against the issue; approves it when OK, otherwise requests changes and sends it back. Never pushes code, never merges. |
 
 Slash commands in `.claude/commands/` start each step:
 
@@ -53,16 +53,16 @@ Slash commands in `.claude/commands/` start each step:
 |---|---|
 | `/brainstorm <idea>` | Architect: discuss a feature, then create draft issues |
 | `/refine #<n>` | Dev, refine mode: draft → ready |
-| `/next-issue [#<n>]` | Dev, implement mode: ready → in-review (picks the next unblocked issue if no number is given) |
+| `/next-issue [#<n>]` | Dev, implement mode: ready → in-review, always ends with an open PR (picks the next unblocked issue if no number is given) |
 
 ### Issue lifecycle (labels)
 
 ```
 status:draft ──(dev refine + maintainer OK)──▶ status:ready
 status:ready ──(dev starts)──▶ status:in-progress
-status:in-progress ──(dev pushes branch)──▶ status:in-review
-status:in-review ──(reviewer: changes needed)──▶ status:in-progress
-status:in-review ──(reviewer: OK, opens PR)──▶ closed when PR merges
+status:in-progress ──(dev pushes branch, opens PR)──▶ status:in-review
+status:in-review ──(reviewer: changes requested)──▶ status:in-progress
+status:in-review ──(reviewer: approves PR)──▶ closed when the maintainer merges
 ```
 
 Only one `status:*` label per issue at a time. Other labels:
@@ -77,6 +77,7 @@ Issue bodies use the sections **Context / Goal / Scope / Acceptance criteria / O
 - Branch from `main`: `issue-<n>-<short-slug>` (e.g. `issue-11-auto-profile-service`).
 - Commit messages are imperative and reference the issue: `Add light_set_auto_profile service (#11)`.
 - One issue per branch/PR unless issues are explicitly bundled.
+- The Dev agent opens the PR as the last step of implementing an issue; PR feedback is addressed on the same branch.
 - PR body follows `.github/pull_request_template.md` and contains `Closes #<n>`.
 
 ### GitHub CLI cheatsheet
