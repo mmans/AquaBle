@@ -47,6 +47,14 @@ All work starts from a GitHub issue on `mmans/AquaBle`. Three Claude Code agents
 | `dev` | Refines drafts with the maintainer; implements ready issues on a branch. Never opens PRs. |
 | `reviewer` | Reviews the branch against the issue; opens the PR when OK, otherwise sends it back. Never pushes code. |
 
+Slash commands in `.claude/commands/` start each step:
+
+| Command | What it does |
+|---|---|
+| `/brainstorm <idea>` | Architect: discuss a feature, then create draft issues |
+| `/refine #<n>` | Dev, refine mode: draft → ready |
+| `/next-issue [#<n>]` | Dev, implement mode: ready → in-review (picks the next unblocked issue if no number is given) |
+
 ### Issue lifecycle (labels)
 
 ```
