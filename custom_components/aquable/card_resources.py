@@ -100,9 +100,7 @@ async def async_register_card_resource(
             await resources.async_update_item(stale["id"], {"url": card_url})
             _record_resource_id(hass, stale["id"])
         else:
-            item = await resources.async_create_item(
-                {"res_type": "module", "url": card_url}
-            )
+            item = await resources.async_create_item({"res_type": "module", "url": card_url})
             _record_resource_id(hass, item["id"])
             installed = True
     except Exception:
@@ -141,7 +139,5 @@ async def async_unregister_card_resources(
             try:
                 await resources.async_delete_item(res_id)
             except Exception:
-                _LOGGER.debug(
-                    "Could not remove Lovelace resource %s", res_id, exc_info=True
-                )
+                _LOGGER.debug("Could not remove Lovelace resource %s", res_id, exc_info=True)
     hass.data.get(DOMAIN, {}).pop(_RESOURCE_ID_KEY, None)

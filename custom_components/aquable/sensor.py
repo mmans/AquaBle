@@ -276,15 +276,11 @@ class LightHardwareSyncSensor(AquaBleEntity, SensorEntity):  # pyright: ignore[r
         self._attr_native_value = "synced"
         self._attr_extra_state_attributes: dict[str, Any] = {
             "device_time": (
-                f"{data.hour:02d}:{data.minute:02d}"
-                if data.minute is not None
-                else None
+                f"{data.hour:02d}:{data.minute:02d}" if data.minute is not None else None
             ),
             "device_weekday": data.weekday,
             "response_mode": (
-                f"0x{data.response_mode:02X}"
-                if data.response_mode is not None
-                else None
+                f"0x{data.response_mode:02X}" if data.response_mode is not None else None
             ),
         }
 
@@ -318,11 +314,7 @@ def _calculate_channel_brightness(
         if now_minutes < sunrise_minutes or now_minutes >= sunset_minutes:
             continue
 
-        peak = (
-            sched.channel_brightness[ch_idx]
-            if ch_idx < len(sched.channel_brightness)
-            else 0
-        )
+        peak = sched.channel_brightness[ch_idx] if ch_idx < len(sched.channel_brightness) else 0
         if peak <= 0:
             continue
 
@@ -369,9 +361,7 @@ class LightLiveChannelSensor(AquaBleEntity, SensorEntity):  # pyright: ignore[re
             self._attr_native_value = None
             return
         now = datetime.datetime.now()
-        self._attr_native_value = _calculate_channel_brightness(
-            data.schedules, self.ch_idx, now
-        )
+        self._attr_native_value = _calculate_channel_brightness(data.schedules, self.ch_idx, now)
 
     def _handle_coordinator_update(self) -> None:
         self._update_state()

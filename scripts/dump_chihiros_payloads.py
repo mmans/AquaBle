@@ -144,8 +144,6 @@ async def capture_device_payloads(
     """Connect to a device, send handshake and probe sequence, and capture notifications."""
     address = device.address if isinstance(device, BLEDevice) else device
     name = device.name if isinstance(device, BLEDevice) else "Unknown"
-    normalized_name = (name or "").upper()
-    is_light = any(normalized_name.startswith(p) for p in ("DYWPR", "DYNA", "DYSIL", "DYNW", "DYU"))
 
     _LOGGER.info("Connecting to %s (%s)...", name, address)
     captured_packets: list[dict] = []
@@ -186,7 +184,10 @@ async def capture_device_payloads(
         commands_to_send: list[tuple[str, bytearray]] = [
             ("Handshake (0x5A, 0x04, [0x01])", _create_handshake_command((0, 1))),
             ("Time Sync (0x5A, 0x09)", _create_set_time_command((0, 2))),
-            ("Prepare 0x04 (0xA5 0x04)",_create_prepare_command((0, 3), stage=0x04),),
+            (
+                "Prepare 0x04 (0xA5 0x04)",
+                _create_prepare_command((0, 3), stage=0x04),
+            ),
         ]
 
         for cmd_name, cmd_bytes in commands_to_send:

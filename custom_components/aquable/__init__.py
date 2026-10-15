@@ -39,9 +39,7 @@ def _compute_frontend_hash(files: list[Path]) -> str:
 
 
 _FRONTEND_HASH = (
-    _compute_frontend_hash(list(_FRONTEND_DIR.glob("*.js")))
-    if _FRONTEND_DIR.exists()
-    else "0"
+    _compute_frontend_hash(list(_FRONTEND_DIR.glob("*.js"))) if _FRONTEND_DIR.exists() else "0"
 )
 _CARD_BASE_URL = f"/{DOMAIN}_panel/"
 _PANEL_URL = f"/{DOMAIN}_panel/{_FRONTEND_HASH}"
@@ -111,9 +109,7 @@ async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     When the last entry is removed, clean up the card Lovelace resources.
     """
     remaining = [
-        e
-        for e in hass.config_entries.async_entries(DOMAIN)
-        if e.entry_id != entry.entry_id
+        e for e in hass.config_entries.async_entries(DOMAIN) if e.entry_id != entry.entry_id
     ]
     if not remaining:
         await async_unregister_card_resources(hass, _ALL_CARD_URLS)
